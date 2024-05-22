@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { GamesService } from '../games.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { loadGames, setGames } from './games.actions';
+import {
+  GamesActions,
+  //  loadGames,
+  //   setGames
+} from './games.actions';
 import { exhaustMap, map } from 'rxjs';
 
 @Injectable()
@@ -13,9 +17,11 @@ export class GamesEffects {
 
   loadGames$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadGames),
+      ofType(GamesActions.load),
       exhaustMap(() =>
-        this.gamesService.getAll().pipe(map((games) => setGames({ games }))),
+        this.gamesService
+          .getAll()
+          .pipe(map((games) => GamesActions.set({ games }))),
       ),
     ),
   );

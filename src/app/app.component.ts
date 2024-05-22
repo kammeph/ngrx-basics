@@ -3,7 +3,10 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { selectGames } from './games/state/games.selector';
-import { loadGames } from './games/state/games.actions';
+import {
+  GamesActions,
+  // loadGames
+} from './games/state/games.actions';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,7 @@ export class AppComponent {
   public games = this.store.selectSignal(selectGames);
 
   constructor(private readonly store: Store) {
-    this.store.dispatch(loadGames());
+    this.store.dispatch(GamesActions.load());
   }
 
   public onSubmit(): void {
