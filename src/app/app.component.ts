@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectGames } from './games/state/games.selector';
+// import { selectGames } from './games/state/games.selector';
 import {
   GamesActions,
   // loadGames
 } from './games/state/games.actions';
+import { gamesFeature } from './games/state/games.reducer';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ import {
 export class AppComponent {
   public title = signal('');
   public year = signal(2024);
-  public games = this.store.selectSignal(selectGames);
+  public games = this.store.selectSignal(gamesFeature.selectGames);
 
   constructor(private readonly store: Store) {
     this.store.dispatch(GamesActions.load());
