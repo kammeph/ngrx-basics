@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Game } from '../games.models';
-import { loadGames, setGames } from './games.actions';
+import { GamesActions } from './games.actions';
+// import { loadGames, setGames } from './games.actions';
 
 export type GamesState = {
   games: Game[];
@@ -14,6 +15,10 @@ const initialState: GamesState = {
 
 export const gamesReducer = createReducer(
   initialState,
-  on(loadGames, (state) => ({ ...state, loading: true })),
-  on(setGames, (state, { games }) => ({ ...state, games, loading: false })),
+  on(GamesActions.load, (state) => ({ ...state, loading: true })),
+  on(GamesActions.set, (state, { games }) => ({
+    ...state,
+    games,
+    loading: false,
+  })),
 );
