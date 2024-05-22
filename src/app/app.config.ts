@@ -5,7 +5,7 @@ import { provideState, provideStore } from '@ngrx/store';
 import {
   gamesFeature,
   //  gamesReducer
-} from './games/state/games.reducer';
+} from './games/entity-state/games.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { GamesEffects } from './games/state/games.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';

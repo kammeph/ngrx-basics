@@ -7,7 +7,7 @@ import {
   GamesActions,
   // loadGames
 } from './games/state/games.actions';
-import { gamesFeature } from './games/state/games.reducer';
+import { gamesFeature } from './games/entity-state/games.reducer';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ import { gamesFeature } from './games/state/games.reducer';
 export class AppComponent {
   public title = signal('');
   public year = signal(2024);
-  public games = this.store.selectSignal(gamesFeature.selectGames);
+  public games = this.store.selectSignal(gamesFeature.selectAll);
 
   constructor(private readonly store: Store) {
     this.store.dispatch(GamesActions.load());
