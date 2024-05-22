@@ -87,3 +87,18 @@ Effects perform tasks, which are synchronous or asynchronous and return a new ac
 - show result with redux dev tools
 
 - show how you can select a signal from the store
+
+# Action Groups
+
+- show disadvantages of current action creation (repetitive code, long imports list)
+- implement action group
+- change use of actions in effects, reducer and app
+
+# Feature
+
+- tell that advantages will be seen after implementation
+- implement feature
+- remove selectors
+- implement feature in app and config
+- add additional property to state and show that selector is already available
+- (show how to add optional selectors)
