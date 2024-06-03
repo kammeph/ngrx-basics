@@ -14,11 +14,7 @@
 
 - explain what an action is
 
-Actions
-Actions are one of the main building blocks in NgRx. Actions express unique events that happen throughout your application. From user interaction with the page, external interaction through network requests, and direct interaction with device APIs, these and more events are described with actions.
-
-Introduction
-Actions are used in many areas of NgRx. Actions are the inputs and outputs of many systems in NgRx. Actions help you to understand how events are handled in your application. This guide provides general rules and examples for writing actions in your application.
+Actions express unique events in the application, for e.g. user interactions or external interactions like network requests
 
 - create games.action.ts file
 - show Action interface (explain type property and payload)
@@ -28,11 +24,7 @@ Actions are used in many areas of NgRx. Actions are the inputs and outputs of ma
 
 - explain what a reducer is
 
-Reducers
-Reducers in NgRx are responsible for handling transitions from one state to the next state in your application. Reducer functions handle these transitions by determining which actions to handle based on the action's type.
-
-Introduction
-Reducers are pure functions in that they produce the same output for a given input. They are without side effects and handle each state transition synchronously. Each reducer function takes the latest Action dispatched, the current state, and determines whether to return a newly modified state or the original state. This guide shows you how to write reducer functions, register them in your Store, and compose feature states.
+Reducers are responsible for handling transitions from one state to the next state in the application. Reducer functions handle these transitions by determining which actions to handle based on the action's type.
 
 - create games.reducer.ts file
 - declare GamesState with only games in it
@@ -45,14 +37,7 @@ Reducers are pure functions in that they produce the same output for a given inp
 
 - explain selectors
 
-Selectors are pure functions used for obtaining slices of store state. @ngrx/store provides a few helper functions for optimizing this selection. Selectors provide many features when selecting slices of state:
-
-Portability
-Memoization
-Composition
-Testability
-Type Safety
-When using the createSelector and createFeatureSelector functions @ngrx/store keeps track of the latest arguments in which your selector function was invoked. Because selectors are pure functions, the last result can be returned when the arguments match without reinvoking your selector function. This can provide performance benefits, particularly with selectors that perform expensive computation. This practice is known as memoization.
+Selectors are pure functions used for obtaining slices of store state.
 
 - create games.selectors.ts file
 - explain how the complete AppState will build together with the registering in the app.config.ts
@@ -65,14 +50,8 @@ When using the createSelector and createFeatureSelector functions @ngrx/store ke
 
 - explain Effects
 
-Effects are an RxJS powered side effect model for Store. Effects use streams to provide new sources of actions to reduce state based on external interactions such as network requests, web socket messages and time-based events.
-
-Introduction
-In a service-based Angular application, components are responsible for interacting with external resources directly through services. Instead, effects provide a way to interact with those services and isolate them from the components. Effects are where you handle tasks such as fetching data, long-running tasks that produce multiple events, and other external interactions where your components don't need explicit knowledge of these interactions.
-
-Key Concepts
-Effects isolate side effects from components, allowing for more pure components that select state and dispatch actions.
-Effects are long-running services that listen to an observable of every action dispatched from the Store.
+Effects use streams to provide new sources of actions to reduce state based on external interactions such as network requests, web socket messages and time-based events.
+Effects are handling tasks such as fetching data, long-running tasks that produce multiple events, and other external interactions.
 Effects filter those actions based on the type of action they are interested in. This is done by using an operator.
 Effects perform tasks, which are synchronous or asynchronous and return a new action.
 
@@ -87,3 +66,41 @@ Effects perform tasks, which are synchronous or asynchronous and return a new ac
 - show result with redux dev tools
 
 - show how you can select a signal from the store
+
+# Action Groups
+
+- show disadvantages of current action creation (repetitive code, long imports list)
+- implement action group
+- change use of actions in effects, reducer and app
+
+# Feature
+
+- tell that advantages will be seen after implementation
+- implement feature
+- remove selectors
+- implement feature in app and config
+- add additional property to state and show that selector is already available (query property)
+- (show how to add optional selectors)
+
+# Entity State
+
+- explain entity state
+
+Entity State adapter for managing record collections.
+It provides an API to manipulate and query entity collections.
+Reduces boilerplate for creating reducers.
+
+- add effect dependency
+- copy state folder to entity-state
+- show and explain EntityState interface
+- extend GameState with EntityState
+
+# Entity State Adapter
+
+- create a GameStateAdapter
+- simplify games set reducer
+- adapter includes a handfull of usefull adapters and can be added to feature
+- add all selector from GameStateSelector
+  extraSelectors: ({ selectGamesState }) => ({
+  ...gamesAdapter.getSelectors(selectGamesState),
+  }),
