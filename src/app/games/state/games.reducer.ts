@@ -2,10 +2,10 @@ import { createReducer, on } from '@ngrx/store';
 import { Game } from '../games.models';
 import { loadGames, setGames } from './games.actions';
 
-export type GamesState = {
+export interface GamesState {
   games: Game[];
   loading: boolean;
-};
+}
 
 const initialState: GamesState = {
   games: [],

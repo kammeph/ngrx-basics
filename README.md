@@ -1,89 +1,64 @@
 # Introduction of NgRx
 
-- show lifecycle diagram
-- install dependency
-- install dev tools
-- show how the provideStore was added to the app.config.ts
+NgRx is a state management framework for Angular applications. This Tutorial was build on the [official NgRx documentation](https://ngrx.io/docs)
 
-# App
+## Start API
 
-- show App
-- show GamesService
+The API is a full fake REST API using [json-server](https://github.com/typicode/json-server). The data for the fake API is contained in the **_db.json_** file in the root directory.
 
-# Actions
+```
+npm run server
+```
 
-- explain what an action is
+## Start Angular App
 
-Actions
-Actions are one of the main building blocks in NgRx. Actions express unique events that happen throughout your application. From user interaction with the page, external interaction through network requests, and direct interaction with device APIs, these and more events are described with actions.
+Basic Angular App version 18 created with the Angluar cli.
 
-Introduction
-Actions are used in many areas of NgRx. Actions are the inputs and outputs of many systems in NgRx. Actions help you to understand how events are handled in your application. This guide provides general rules and examples for writing actions in your application.
+```
+npm run start
+```
 
-- create games.action.ts file
-- show Action interface (explain type property and payload)
-- create loadGames and setGames actions with createAction function
+## Branches
 
-# Reducers
+This repository contains 4 branches that contains different stages of the implementation of NgRx.
 
-- explain what a reducer is
+### Master
 
-Reducers
-Reducers in NgRx are responsible for handling transitions from one state to the next state in your application. Reducer functions handle these transitions by determining which actions to handle based on the action's type.
+The _master_ branch does not contain any implementations of the NgRx state management. If you want to start from zero then work on the master branch or create a feature branch based on this one.
 
-Introduction
-Reducers are pure functions in that they produce the same output for a given input. They are without side effects and handle each state transition synchronously. Each reducer function takes the latest Action dispatched, the current state, and determines whether to return a newly modified state or the original state. This guide shows you how to write reducer functions, register them in your Store, and compose feature states.
+```
+git clone https://github.com/kammeph/ngrx-basics.git
+```
 
-- create games.reducer.ts file
-- declare GamesState with only games in it
-- create a gamesReducer with the createReducer function
-- declare the necessary initial state
-- listen to the actions created above add loading flag to the state
-- register the reducer in the app.config.ts
+### Solution 1
 
-# Selectors
+The branch _solution-1_ includes the implementation of the basic building block of the NgRx state management (Actions, Reducer, Selectors and Effects)
+Installed dependecies:
 
-- explain selectors
+- @ngrx/store
+- @ngrx/store-devtools
+- @ngrx/effects
 
-Selectors are pure functions used for obtaining slices of store state. @ngrx/store provides a few helper functions for optimizing this selection. Selectors provide many features when selecting slices of state:
+```
+git checkout solution-1
+```
 
-Portability
-Memoization
-Composition
-Testability
-Type Safety
-When using the createSelector and createFeatureSelector functions @ngrx/store keeps track of the latest arguments in which your selector function was invoked. Because selectors are pure functions, the last result can be returned when the arguments match without reinvoking your selector function. This can provide performance benefits, particularly with selectors that perform expensive computation. This practice is known as memoization.
+### Solution 2
 
-- create games.selectors.ts file
-- explain how the complete AppState will build together with the registering in the app.config.ts
-- create a feature selector for the games state
-- create selectors for games and loading
-- implement the dispatch of the loadGames action and the select of the games in the App
-- show that nothing happens to build a bridge to effects
+With the branch _solution-2_ boilder plate code for actions and selectors were reduced by using the **ActionGroup** and the **Feature**.
 
-# Effects
+```
+git checkout solution-2
+```
 
-- explain Effects
+### Solution 3
 
-Effects are an RxJS powered side effect model for Store. Effects use streams to provide new sources of actions to reduce state based on external interactions such as network requests, web socket messages and time-based events.
+In the branch _solution-3_ the **EntityState** and **EntityAdapter** were introduced for reducing boiler plate code for state that are used for managing entities.
 
-Introduction
-In a service-based Angular application, components are responsible for interacting with external resources directly through services. Instead, effects provide a way to interact with those services and isolate them from the components. Effects are where you handle tasks such as fetching data, long-running tasks that produce multiple events, and other external interactions where your components don't need explicit knowledge of these interactions.
+Installed dependecies:
 
-Key Concepts
-Effects isolate side effects from components, allowing for more pure components that select state and dispatch actions.
-Effects are long-running services that listen to an observable of every action dispatched from the Store.
-Effects filter those actions based on the type of action they are interested in. This is done by using an operator.
-Effects perform tasks, which are synchronous or asynchronous and return a new action.
+- @ngrx/entity
 
-- add effect dependency
-- show the app.config.ts modifications
-- declare GamesEffects class
-- add the new class to the provideEffects function
-- add the loadGames effect
-- add actions$ to constructor explain the usage
-- add the gamesService to the constructor for fetching games
-- return the setGames action
-- show result with redux dev tools
-
-- show how you can select a signal from the store
+```
+git checkout solution-3
+```
